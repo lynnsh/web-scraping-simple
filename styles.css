@@ -1,0 +1,35 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+html, body {
+	height: 100%;
+	text-align: center;
+	color: white;
+}
+
+form {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lbl {
+    text-align: right;
+    margin-top: 7px;
+}
+
+.btn-submit {
+    text-align: left;
+}
+
+
+.error {
+    color:red;
+    margin: 10px;
+}
+
+.top {
+    margin: 10px;
+}
