@@ -6,14 +6,18 @@
         <title>Web Scraping Project</title>
     </head> 
     <body>
-        <h2>Search the database!</h2>
-        <form method="POST" action="" class="well">  
-            <div class="top"><input class="btn btn-info" type="submit" 
-                        value="Top 10 most gawked submitters!" name="users"/></div>
-            <div class="row">
-                <div class="col-md-4 lbl"><label for="key">Enter the keyword:</label></div>
-                    <div class="col-md-4"><input id="key" type='text' name='key' class="form-control"
-                                value="<?php if (isset($_POST['key'])) echo $_POST['key']; ?>"/></div>
-            
-            <div class="col-md-4 btn-submit"><input class="btn btn-default" type="submit" value="Submit" name="submit"/></div>
-            </div>
+        <div class="container white">
+            <h2>Search the database!</h2>
+            <form method="POST" action="" > 
+                <div class="form-group">
+                    <div class="top"><input class="btn btn-blue" type="submit" 
+                                value="Top 10 most gawked submitters" name="users"/></div>
+                    <div class="row">
+                        <div class="col-md-4 lbl"><label for="key">Enter the keyword:</label></div>
+                            <div class="col-md-4"><input id="key" type='text' name='key' class="form-control"
+                                        value="<?php if (isset($_POST['key'])) echo $_POST['key']; ?>"/></div>
+
+                    <div class="col-md-4 btn-submit white"><input class="btn" type="submit" 
+                         value="Submit" name="submit"/></div></div>
+                    <hr>
+                </div>

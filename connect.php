@@ -6,10 +6,10 @@
  * @return the handler to the statement object to work with the database.
  */
 function connectToDb(&$pdo, $sql) {
-    $dbname = 'homestead';//'cs1242395';
-    $dbuser = 'homestead';//'CS1242395';
-    $dbpassword = 'secret';//'harsioco';
-    $host = 'localhost';//'waldo2.dawsoncollege.qc.ca';
+    $dbname = 'cs1242395'; //'homestead';//
+    $dbuser = 'CS1242395'; //'homestead';//
+    $dbpassword = 'harsioco'; //'secret';//
+    $host = 'waldo2.dawsoncollege.qc.ca'; //'localhost';//
     
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $dbuser, $dbpassword);
     $pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

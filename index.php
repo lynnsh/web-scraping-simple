@@ -24,23 +24,22 @@ function init() {
   */
  function displayResults($stmt) {
      if($stmt -> rowCount() == 0)
-            echo "<p>No recipes found for the requested description.</p>";
+            echo "<p>No recipes found for the requested keyword.</p>";
      else {
         echo "<h3>Results:</h3>";
         while($row = $stmt -> fetch()) {
-            echo "<hr/>";
             $title = $row['title'];
             $ref = $row['reference'];
             $description = $row['description'];
             $user = $row['username'];
             $views = $row['views'];
-            echo "<h4>$title</h4><br/>"
-                    . "<a href='$ref'>Link to the recipe..</a>"
-                    . "<p>$description</p><p>$user</p><p>$views</p>";
-            echo "<hr/>";
+            echo '<div class="box">';
+            echo "<p><a href='$ref' class='green title'><b >$title</b></a> by <b>$user</b></p>"
+                ."<p>$description</p><p><i>Gawked</i>: <span class='green'>$views</span></p></div>";
         }
      }
  }
+
  
  /**
   * Queries database for the requested keyword.
@@ -71,11 +70,13 @@ function init() {
         $stmt = connectToDb($pdo, $query);
         $stmt -> execute();
         echo "<h3>Results:</h3>";
-        while($row = $stmt -> fetch()) {
+        $index = 1;
+        while($row = $stmt -> fetch()) {           
             $user = $row['username'];
             $views = $row['views'];
-            echo "<h4>$user</h4>"
-                    . "<p>Views: $views</p>";
+            echo "<div class='users'>$index. <span class='blue title'>"
+                    . "<b>$user</b></span> with views: <i class='blue'>$views</i></div>";
+            $index++;
         }
     }
     catch(PDOException $e) {
@@ -96,7 +97,7 @@ function init() {
  function validate() { 
     $key = false;     
     if(empty($_POST['key']))
-        echo "<p class='error'>Invalid name</p>";
+        echo "<p class='error'>Invalid keyword</p>";
     else {
         $key = htmlentities($_POST['key']);
     }
@@ -104,9 +105,10 @@ function init() {
 }
 
 ?>
-
+<hr>
+</div>
 </form>
-<footer>All data © FoodGawker, 2016</footer>
+<footer class="white">All data © FoodGawker, 2016</footer>
 </body>
 </html>
 

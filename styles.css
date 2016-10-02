@@ -7,13 +7,21 @@ html, body {
 	height: 100%;
 	text-align: center;
 	color: white;
+    background-image: url("back.jpg");
 }
+
 
 form {
     width: 85%;
     margin-left: auto;
     margin-right: auto;
 }
+
+footer {
+    margin-bottom: 15px;
+}
+
+
 
 .lbl {
     text-align: right;
@@ -24,12 +32,58 @@ form {
     text-align: left;
 }
 
+.box {
+    background-color: black;
+    opacity: 0.8;
+    text-align: left;
+    border: 1px solid #e3e3e3;
+    border-radius: 14px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    margin-bottom: 20px;
+    min-height: 20px;
+    padding: 19px;
+}
+
+.btn {
+    background-color: #7A8F02;
+}
+
+.users {
+    padding: 10px;
+    text-align: left;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.blue {
+    color: #01798e;
+}
+
+.title {
+    font-size: 1.3em;
+}
+
+.white {
+    color: white;
+}
+
+.green {
+    color: #7A8F02;
+}
+
 
 .error {
     color:red;
     margin: 10px;
 }
 
+
 .top {
-    margin: 10px;
+    margin: 20px;  
+}
+
+.btn-blue {
+    background-color: #01798e;
 }
