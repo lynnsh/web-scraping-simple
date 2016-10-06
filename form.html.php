@@ -15,7 +15,8 @@
                     <div class="row">
                         <div class="col-md-4 lbl"><label for="key">Enter the keyword:</label></div>
                             <div class="col-md-4"><input id="key" type='text' name='key' class="form-control"
-                                        value="<?php if (isset($_POST['key'])) echo $_POST['key']; ?>"/></div>
+                                        value="<?php if (isset($_POST['key'])) echo $_POST['key']; 
+                                                else if (isset($_GET['q'])) echo $_GET['q'];?>"/></div>
 
                     <div class="col-md-4 btn-submit white"><input class="btn" type="submit" 
                          value="Submit" name="submit"/></div></div>

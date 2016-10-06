@@ -19,6 +19,11 @@ form {
 
 footer {
     margin-bottom: 15px;
+    background-color: black;
+    opacity: 0.5;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -54,6 +59,25 @@ footer {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.page .pagination > .active > a, .page .pagination > .active > a:focus, 
+.page .pagination > .active > a:hover, .page .pagination > .active > span, 
+.page .pagination > .active > span:focus, .page .pagination > .active > span:hover {
+    background-color: #01798e;
+    color: black;
+}
+
+.page .pagination > li > a, .page .pagination > li > span,
+.page .pagination > li > a:hover, .page .pagination > li > span:hover
+.page .pagination > li > a:focus, .page .pagination > li > span:focus{
+    color: #01798e;
+    background-color: black;
+    
+}
+
+.page .pagination > li > a, .page .pagination > li > span {
+    border: 1px solid #01798e;
 }
 
 
