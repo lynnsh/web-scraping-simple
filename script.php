@@ -28,17 +28,17 @@ function init() {
 function createTable() {
     try{
         $sql = "drop table if exists recipes; "
-                . "create table recipes (id integer primary key AUTO_INCREMENT, "
-                . "title varchar(50) default '' not null, "
-                . "reference varchar(500) default '' not null, "
-                . "description varchar(500) default '' not null, "
-                . "username varchar(50) default '' not null, "
-                . "views integer default 0 not null);";
-        $stmt = connectToDb($pdo, $sql);
+             . "create table recipes (id integer primary key AUTO_INCREMENT, "
+             . "title varchar(50) default '' not null, "
+             . "reference varchar(500) default '' not null, "
+             . "description varchar(500) default '' not null, "
+             . "username varchar(50) default '' not null, "
+             . "views integer default 0 not null);";
+        $stmt = connectToDb(&$pdo, $sql);
         $stmt -> execute();
     }
     catch(PDOException $e) {
-        echo $e ->getMessage();
+        echo $e -> getMessage();
     }
     return $pdo;
 }
@@ -70,7 +70,7 @@ function getRecipesFromPage($xpath, $stmt) {
     $objects = $xpath -> query("//div[@class='card front']");
     $i = 0;
     foreach($objects as $obj) {
-        $pictures = $xpath->query("//a[@class='picture-link']", $obj) ->item($i);
+        $pictures=$xpath->query("//a[@class='picture-link']", $obj) -> item($i);
         $title = $pictures -> getAttribute('title');
         $description = $xpath->query("//section[@class='description']") -> item($i) -> nodeValue;
         $ref = $pictures -> getAttribute('href') ;
@@ -95,8 +95,8 @@ function prepareStmt($pdo) {
     global $title, $description, $ref, $user, $views;
     if(isset($pdo)) {
         try {
-            $sql = "insert into recipes (title, reference, description, username, views)"
-                    . " values(?, ?, ?, ?, ?)";
+            $sql = "insert into recipes (title, reference, description, "
+                    . "username, views) values(?, ?, ?, ?, ?)";
             $stmt = $pdo -> prepare($sql);
             $stmt -> bindParam(1, $title);
             $stmt -> bindParam(2, $ref);
@@ -112,7 +112,8 @@ function prepareStmt($pdo) {
 }
 
 /**
- * Saves obtained values to the database. If the record is incomplete, saves it instead to the file.
+ * Saves obtained values to the database.
+ * If the record is incomplete, saves it instead to the file.
  * @global $title title of the recipe.
  * @global $description description of the recipe.
  * @global $ref link to the recipe.
@@ -122,8 +123,9 @@ function prepareStmt($pdo) {
  */
 function saveToDb($stmt) {
     global $title, $description, $ref, $user, $views;
-    
-    if(empty($title) || empty($description) || empty($ref) || empty($user) || empty($views)) {
+    //safe to file if the record is incomplete
+    if(empty($title) || empty($description) || empty($ref) || 
+       empty($user) || empty($views)) {
         $res = fopen('errors.txt', 'a');
         fwrite($res, "title: $title,\r\ndesc: $description,\r\nlink: $ref,\r\n"
                 . "username: $user,\r\nviews: $views\r\n\r\n");

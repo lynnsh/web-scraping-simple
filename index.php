@@ -11,7 +11,7 @@ function init() {
     if($_SERVER['REQUEST_METHOD'] == 'POST') { 
         if(isset($_POST['users']))
             showUsers();
-        else {
+        elseif (isset($_POST['key'])) {
             unset($_GET['t']);
             unset($_GET['p']);
             unset($_GET['q']);           
@@ -19,7 +19,7 @@ function init() {
             showRecipes($key, $display); 
         }
      }
-     else if(isset($_GET['q'])) {
+     elseif(isset($_GET['q'])) {
         $key = validKey($_GET['q']);
         showRecipes($key, $display); 
      }
@@ -33,12 +33,12 @@ function init() {
 function showRecipes($key, $display) {
     if($key) {
         if((isset($_GET['t']) && is_numeric($_GET['t'])))
-            $pages = $_GET['t'];
+            $pages = htmlentities($_GET['t']);
         else
             $pages = ceil(getNumPages($key)/$display);
         
         if((isset($_GET['p']) && is_numeric($_GET['p'])))
-            $current = $_GET['p'];
+            $current = htmlentities($_GET['p']);
         else
             $current = 0;
         
@@ -63,8 +63,10 @@ function showRecipes($key, $display) {
             $user = $row['username'];
             $views = $row['views'];
             echo '<div class="box">';
-            echo "<p><a href='$ref' class='green title'><b >$title</b></a> by <b>$user</b></p>"
-                ."<p>$description</p><p><i>Gawked</i>: <span class='green'>$views</span></p></div>";
+            echo "<p><a href='$ref' class='green title'>"
+                ."<b>$title</b></a> by <b>$user</b></p>"
+                ."<p>$description</p><p><i>Gawked</i>: "
+                . "<span class='green'>$views</span></p></div>";
         }
      }
  }
@@ -79,17 +81,20 @@ function showRecipes($key, $display) {
      if($pages > 1) {
          echo '<div class="page"><ul class="pagination">';
          if($current != 0)
-             echo "<li><a href='index.php?t=$pages&p=".($current-1)."&q=$key'><</a></li>";
+             echo "<li><a href='index.php?t=$pages&p=".($current-1)
+                 ."&q=$key'><</a></li>";
          
          for ($i = 0; $i < $pages; $i++) {
             if($current == $i)
                 echo "<li class='active'><a>".($i+1)."</a></li>";
             else
-                echo "<li><a href='index.php?t=$pages&p=$i&q=$key'>".($i+1)."</a></li>";
+                echo "<li><a href='index.php?t=$pages&p=$i&q=$key'>".($i+1)
+                    ."</a></li>";
          }
          
          if($current != ($pages-1))
-             echo "<li><a href='index.php?t=$pages&p=".($current+1)."&q=$key'>></a></li>";          
+             echo "<li><a href='index.php?t=$pages&p=".($current+1)
+                 ."&q=$key'>></a></li>";          
      }
  }
  
@@ -100,7 +105,7 @@ function showRecipes($key, $display) {
   */
  function getNumPages($key) {
      try {
-         $sql = "select count(*) as number from recipes where description like ?";
+         $sql="select count(*) as number from recipes where description like ?";
          $stmt = connectToDb($pdo, $sql);
          $stmt -> bindValue(1, '%'.$key.'%');
          $stmt -> execute();
@@ -127,7 +132,8 @@ function showRecipes($key, $display) {
  function getRecipes($key, $start, $display) {
     try{
         $query = "select title, reference, description, username, views "
-                . "from recipes where description like ? order by views desc limit ?, ?";
+                . "from recipes where description like ? "
+                . "order by views desc limit ?, ?";
         $stmt = connectToDb($pdo, $query);
         $stmt -> bindValue(1, '%'.$key.'%');
         $stmt -> bindValue(2, $start, PDO::PARAM_INT);
@@ -150,8 +156,8 @@ function showRecipes($key, $display) {
   */
   function showUsers() {
     try{
-        $query = "select username, sum(views) as views from recipes group by username "
-                . "order by sum(views) desc limit 10";
+        $query = "select username, sum(views) as views from recipes "
+                . "group by username order by sum(views) desc limit 10";
         $stmt = connectToDb($pdo, $query);
         $stmt -> execute();
         echo "<h3>Results:</h3>";
@@ -160,7 +166,8 @@ function showRecipes($key, $display) {
             $user = $row['username'];
             $views = $row['views'];
             echo "<div class='users'>$index. <span class='blue title'>"
-                    . "<b>$user</b></span> with views: <i class='blue'>$views</i></div>";
+               . "<b>$user</b></span> with views: "
+               . "<i class='blue'>$views</i></div>";
             $index++;
         }
     }
