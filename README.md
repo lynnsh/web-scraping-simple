@@ -1,5 +1,5 @@
 #### web-scraping-simple
-## Web Scraping Assignment
+## Web Scraping Project
 
 _Tools: PHP, MySQL, curl_
 
